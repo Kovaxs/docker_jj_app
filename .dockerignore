@@ -11,6 +11,7 @@
 **/.dockerignore
 **/.env
 **/.git
+**/.jj
 **/.gitignore
 **/.project
 **/.settings
@@ -31,4 +32,3 @@
 **/secrets.dev.yaml
 **/values.dev.yaml
 LICENSE
-README.md
