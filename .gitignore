@@ -1,0 +1,103 @@
+# ─── Python ────────────────────────────────────────────────────────────────
+# Bytecode / optimized files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+*.egg-info/
+*.egg
+build/
+dist/
+wheels/
+pip-wheel-metadata/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# uv (uncomment if you don't want the lock file tracked)
+# uv.lock
+
+# Test / coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.cache/
+.tox/
+.nox/
+coverage.xml
+*.cover
+
+# Type checkers / linters
+.mypy_cache/
+.ruff_cache/
+.dmypy.json
+dmypy.json
+
+# Jupyter
+.ipynb_checkpoints/
+profile_default/
+
+# ─── Secrets / local config ────────────────────────────────────────────────
+# Environment files — keep .env.example tracked
+.env
+.env.*
+!.env.example
+
+# Docker secrets
+secrets/
+*.pem
+*.key
+
+# ─── Docker ────────────────────────────────────────────────────────────────
+# Dockerfile and compose.yaml are intentionally tracked
+
+# ─── IDEs / editors ────────────────────────────────────────────────────────
+# VS Code (uncomment the next line to ignore the whole folder)
+.vscode/
+# !.vscode/settings.json
+# !.vscode/extensions.json
+
+# JetBrains / IntelliJ
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Sublime / Vim / Emacs
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+.vscode-test/
+.history/
+
+# ─── OS ────────────────────────────────────────────────────────────────────
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# ─── Logs / runtime ────────────────────────────────────────────────────────
+*.log
+logs/
+pids/
+*.pid
+*.seed
+
+# ─── VCS ────────────────────────────────────────────────────────────────────
+# jj colocated with git
+.jj/
+
