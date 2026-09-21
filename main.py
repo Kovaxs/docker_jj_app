@@ -3,21 +3,7 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
-
-from secretspec import SecretSpec
-
-resolved = (
-    SecretSpec.builder()
-    .with_provider("pass://")
-    .with_profile("development")
-    .with_reason("boot web app")
-    .load()
-)
-
-print(resolved.provider, resolved.profile)
-db = resolved.secrets["DATABASE_URL"]
-print(db.get)  # the value, or the file path for as_path secrets
-resolved.set_as_env()
+from secret_setter import db
 
 app = FastAPI(title="docker-project", version="0.1.0")
 

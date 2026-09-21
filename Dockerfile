@@ -43,29 +43,22 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 
 FROM base AS final
 
-# Use the virtual environment directly, without needing uv at runtime.
 ENV PATH="/app/.venv/bin:$PATH"
+ENV HOME="/home/appuser"
 
-# Create a non-privileged user that the app will run under.
-# See https://docs.docker.com/go/dockerfile-user-best-practices/
 ARG UID=10001
 RUN adduser \
     --disabled-password \
     --gecos "" \
-    --home "/nonexistent" \
+    --home "/home/appuser" \
     --shell "/sbin/nologin" \
-    --no-create-home \
     --uid "${UID}" \
     appuser
 
-# Switch to the non-privileged user to run the application.
+COPY --from=builder --chown=appuser:appuser /app /app
+
 USER appuser
 
-# Copy the source code and virtual environment from the builder.
-COPY --from=builder /app /app
-
-# Expose the port that the application listens on.
 EXPOSE 5002
 
-# Run the application.
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "5002"]
