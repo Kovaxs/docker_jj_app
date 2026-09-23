@@ -12,7 +12,7 @@ services:
     build:
       context: .
     ports:
-      - "5002:5002"
+      - "5001:5001"
     environment:
       - DATABASE_URL
       - SECRETSPEC_PROVIDER=env
