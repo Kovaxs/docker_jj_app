@@ -37,4 +37,3 @@ secretspec run --provider pass --profile development -- docker compose up --buil
 ### References
 
 - [Docker's Python guide](https://docs.docker.com/language/python/)
-

@@ -1,117 +1,40 @@
 # docker-project
 
-A simple FastAPI application.
+A simple FastAPI application to illustrate some cool docker features
 
-## Running locally
+## `docker init`
 
-```bash
-# Install dependencies
-uv sync
+- scaffold: Dockerfile, ignore, compose
 
-# Start the dev server
-uv run uvicorn main:app --reload --host 0.0.0.0 --port 5001
-```
+## `docker cp`
 
-The API will be available at `http://localhost:5001`.
-Interactive docs (Swagger UI) are at `http://localhost:5001/docs`.
+- copy from stopped containers
 
-## Testing the API with curl
+## `docker diff`
 
-> Assumes the server is running on `http://localhost:5001`.
-> If you started the container with a different host port mapping
-> (e.g. `docker run -p 8080:5001 ...`), replace `5001` accordingly.
+- see filesystem changes
 
-### Root — `GET /`
+## `docker events`
 
-Returns the loaded `DATABASE_URL` from `secret_setter`.
+- trace what Docker is doing, this is a listener. Yo can apply filters with --filter flag
 
-```bash
-curl -i http://localhost:5001/
-```
+## `docker top` + `docker update`
 
-Expected response:
+- live resource limits
 
-```json
-{ "message": "<your DATABASE_URL value>" }
-```
+## `docker system df`
 
-### Health check — `GET /health`
+- where storage goes: `docker system df -v`
 
-```bash
-curl -i http://localhost:5001/health
-```
+## `docker compose alpha`
 
-Expected response:
+generate, publish, run over OCI
 
-```json
-{ "status": "ok" }
-```
+- `docker compose alpha generate test-app > test.yaml`
 
-### Create item — `POST /items`
+## Bonus: `buildx` and BuildKit
 
-Body schema:
+- `docker buildx history ls` > history of builds
+- `docker buildx history trace` > building graphs
 
-| Field      | Type   | Required | Default | Constraints     |
-| ---------- | ------ | -------- | ------- | --------------- |
-| `name`     | string | yes      | —       | —               |
-| `quantity` | int    | no       | `1`     | must be `>= 1`  |
-
-**Create with default quantity:**
-
-```bash
-curl -i -X POST http://localhost:5001/items \
-  -H "Content-Type: application/json" \
-  -d '{"name": "apple"}'
-```
-
-**Create with explicit quantity:**
-
-```bash
-curl -i -X POST http://localhost:5001/items \
-  -H "Content-Type: application/json" \
-  -d '{"name": "banana", "quantity": 5}'
-```
-
-Expected response (HTTP `200`):
-
-```json
-{ "name": "banana", "status": "created" }
-```
-
-**Validation failure (quantity `< 1`):**
-
-```bash
-curl -i -X POST http://localhost:5001/items \
-  -H "Content-Type: application/json" \
-  -d '{"name": "bad", "quantity": 0}'
-```
-
-Expected response (HTTP `400`):
-
-```json
-{ "detail": "quantity must be >= 1" }
-```
-
-### One-liner smoke test
-
-Hit all three endpoints in sequence and print only the HTTP status codes:
-
-```bash
-for endpoint in "/" "/health"; do
-  curl -s -o /dev/null -w "GET ${endpoint} -> %{http_code}\n" \
-    "http://localhost:5001${endpoint}"
-done
-
-curl -s -o /dev/null -w "POST /items -> %{http_code}\n" \
-  -X POST http://localhost:5001/items \
-  -H "Content-Type: application/json" \
-  -d '{"name": "smoke-test", "quantity": 1}'
-```
-
-Expected output:
-
-```
-GET / -> 200
-GET /health -> 200
-POST /items -> 200
-```
+- hidden web UI (Jaeger)

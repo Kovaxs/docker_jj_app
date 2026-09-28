@@ -14,10 +14,15 @@ dev:
 docker-build:
 	docker build -t $(IMAGE) .
 
-docker-run: docker-build
+docker-run: # docker-build
 	secretspec run --provider pass --profile development -- \
 	docker run --rm -p $(PORT):5001 \
 		-e DATABASE_URL -e SECRETSPEC_PROVIDER=env $(IMAGE)
+docker-run-sleep:
+	secretspec run --provider pass --profile development -- \
+	docker run --name $(IMAGE) -p $(PORT):5001 \
+		-e DATABASE_URL -e SECRETSPEC_PROVIDER=env $(IMAGE)
+		$(IMAGE) sleep infinity 
 
 compose-up:
 	secretspec run --provider pass --profile development -- \
