@@ -1,0 +1,23 @@
+services:
+  test-app:
+    environment:
+      DATABASE_URL: "123232414123"
+      GPG_KEY: 7169605F62C751356D054A26A821E680E5FA6305
+      HOME: /home/appuser
+      PATH: /app/.venv/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      PYTHON_SHA256: 1e66a7945a48390ee4c2a4268a0e4185884059a13c4aab6d148aa208deea4a76
+      PYTHON_VERSION: 3.13.15
+      PYTHONDONTWRITEBYTECODE: "1"
+      PYTHONUNBUFFERED: "1"
+      SECRETSPEC_PROVIDER: env
+    image: test-app
+    networks:
+      bridge: {}
+    ports:
+      - target: 5001
+        published: "5001"
+        protocol: tcp
+    scale: 1
+networks:
+  bridge: {}
+

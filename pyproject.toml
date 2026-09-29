@@ -4,4 +4,26 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "fastapi>=0.141.1",
+    "pydantic>=2.0",
+    "secretspec>=0.20.0",
+    "uvicorn>=0.53.0",
+]
+
+[dependency-groups]
+dev = [
+    "deptry>=0.23.1",
+    "ruff>=0.14.0",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "N", "W"]
+
+[tool.deptry]
+# uvicorn is the ASGI server invoked from the Dockerfile CMD, not imported in code.
+per_rule_ignores = { "DEP002" = ["uvicorn"] }
